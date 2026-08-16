@@ -8,6 +8,7 @@ import {
   CloudCog,
   Code2,
   Database,
+  ExternalLink,
   Github,
   Network,
   ShieldCheck,
@@ -27,15 +28,16 @@ const proofPoints = [
 const featuredSystems = [
   {
     number: "01",
-    name: "CareInsight AI",
+    name: "CareFlow AI",
     category: "Care intelligence",
-    outcome: "Turn everyday care records into actionable resident intelligence.",
+    outcome: "Coordinate care operations and turn daily records into actionable resident intelligence.",
     problem:
       "Care observations, incidents, and notes are fragmented across operational workflows.",
     system:
-      "A multi-tenant care platform combining structured records, resident timelines, role-aware dashboards, RAG, and grounded AI summaries.",
-    evidence: "337 automated tests across the flagship care platform.",
+      "A care operations platform combining alert triage, incident reporting, shift handoffs, family communication, role-aware dashboards, and grounded AI workflows.",
+    evidence: "A live, production-oriented workflow for senior living teams.",
     tech: ["FastAPI", "Next.js", "PostgreSQL", "pgvector", "RBAC"],
+    href: "https://careflow-ai-web.vercel.app",
     icon: BrainCircuit,
   },
   {
@@ -49,19 +51,21 @@ const featuredSystems = [
       "An event-driven front office that follows up, qualifies intent, schedules next steps, and records every interaction in the business workflow.",
     evidence: "From inbound event to qualified, traceable customer action.",
     tech: ["AI agents", "Voice & SMS", "APIs", "CRM", "Automation"],
+    href: "https://frontend-five-brown-e6pmozaq6t.vercel.app",
     icon: Bot,
   },
   {
     number: "03",
-    name: "RetireWise AI",
-    category: "Financial planning SaaS",
-    outcome: "Make complex retirement scenarios easier to model and understand.",
+    name: "HVAC Pro Office",
+    category: "Vertical SaaS",
+    outcome: "Run customers, jobs, quotes, invoices, and subscriptions from one operational system.",
     problem:
-      "Retirement decisions combine uncertain markets, long time horizons, and difficult tradeoffs.",
+      "HVAC companies often coordinate field work, customer communication, billing, and maintenance across disconnected tools.",
     system:
-      "A planning platform that joins deterministic calculators, Monte Carlo modeling, scenario comparison, and AI-assisted explanations.",
-    evidence: "Financial modeling and AI kept in distinct, auditable layers.",
-    tech: ["Next.js", "Python", "Monte Carlo", "PostgreSQL", "AI"],
+      "A unified field-service SaaS platform with CRM, scheduling, estimates, invoices, subscriptions, and AI-ready automation workflows.",
+    evidence: "A complete vertical business operating system with a live product experience.",
+    tech: ["Next.js", "CRM", "Payments", "Scheduling", "Automation"],
+    href: "https://hvac-rose.vercel.app",
     icon: CloudCog,
   },
   {
@@ -75,6 +79,7 @@ const featuredSystems = [
       "A video-processing pipeline that extracts movement signals, runs AI inference, and presents human-readable assessment support.",
     evidence: "A different class of AI system: video, inference, and health UX.",
     tech: ["Computer vision", "Python", "Video", "AI inference", "Health UX"],
+    href: "https://safestride-mvp-zncm.vercel.app",
     icon: Network,
   },
 ];
@@ -160,7 +165,7 @@ export default function Home() {
           ))}
         </div>
         <div className="proof-metrics">
-          <div><strong>337</strong><span>automated tests in a flagship platform</span></div>
+          <div><strong>8</strong><span>live AI and SaaS systems showcased</span></div>
           <div><strong>15+</strong><span>years working across technology</span></div>
           <div><strong>Local + cloud</strong><span>LLM deployment patterns</span></div>
         </div>
@@ -197,6 +202,15 @@ export default function Home() {
                 <div className="tech-tags">
                   {project.tech.map((item) => <span key={item}>{item}</span>)}
                 </div>
+                <Link
+                  href={project.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="system-live-link"
+                  aria-label={`Open the live ${project.name} project`}
+                >
+                  View live system <ExternalLink size={15} />
+                </Link>
               </article>
             );
           })}

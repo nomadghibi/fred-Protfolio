@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://fred-dehnashi-github-portfolio.vercel.app"),
+  metadataBase: new URL("https://freddehnashi.com"),
   title: {
     template: "%s | Fred Dehnashi",
     default: "Fred Dehnashi | AI Systems & Automation Consultant",

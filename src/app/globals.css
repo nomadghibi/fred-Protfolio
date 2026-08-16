@@ -116,6 +116,8 @@
 .system-card dd { margin: 0; color: #94a3b8; font-size: .81rem; line-height: 1.58; }
 .tech-tags { display: flex; flex-wrap: wrap; gap: 7px; position: relative; z-index: 2; }
 .tech-tags span { padding: 6px 9px; color: #bae6fd; font-size: .65rem; border: 1px solid rgba(56,189,248,.16); background: rgba(14,116,144,.08); }
+.system-live-link { display: inline-flex; align-items: center; gap: 7px; margin-top: 24px; position: relative; z-index: 2; color: #67e8f9; font-size: .73rem; font-weight: 650; }
+.system-live-link:hover { color: #cffafe; }
 .section-action { margin-top: 32px; text-align: right; }
 .text-link { display: inline-flex; align-items: center; gap: 9px; color: #67e8f9; font-size: .82rem; }
 
