@@ -1,4 +1,6 @@
 import React from "react";
+/* External GitHub stat cards are generated SVG endpoints and intentionally use img. */
+/* eslint-disable @next/next/no-img-element */
 import ItemLayout from "./ItemLayout";
 import Link from "next/link";
 import { profileData } from "@/app/data";

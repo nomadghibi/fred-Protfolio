@@ -1,8 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import clsx from "clsx";
-import FireFliesBackground from "@/components/FireFliesBackground";
-import Sound from "@/components/Sound";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -10,12 +8,13 @@ const inter = Inter({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://fred-dehnashi-github-portfolio.vercel.app"),
   title: {
     template: "%s | Fred Dehnashi",
-    default: "Fred Dehnashi | AI, SaaS, and Automation Portfolio",
+    default: "Fred Dehnashi | AI Systems & Automation Consultant",
   },
   description:
-    "GitHub portfolio of Fred Dehnashi, an AI and Data Strategy Consultant building practical AI systems, SaaS platforms, private AI solutions, analytics products, and business automation.",
+    "Fred Dehnashi designs and builds production-minded AI systems, SaaS platforms, RAG applications, private AI solutions, and business automation.",
   keywords: [
     "Fred Dehnashi",
     "nomadghibi",
@@ -27,11 +26,20 @@ export const metadata = {
     "GitHub portfolio",
   ],
   openGraph: {
-    title: "Fred Dehnashi | GitHub Portfolio",
+    title: "Fred Dehnashi | AI Systems & Automation Consultant",
     description:
-      "Selected AI, SaaS, automation, analytics, and business software projects.",
+      "Production-minded AI systems, SaaS architecture, RAG, private LLMs, and business automation.",
     type: "website",
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Fred Dehnashi — AI Systems & Automation Consultant" }],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Fred Dehnashi | AI Systems & Automation Consultant",
+    description: "Production-minded AI systems, SaaS architecture, RAG, private LLMs, and business automation.",
+    images: ["/og.png"],
+  },
+  alternates: { canonical: "/" },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }) {
@@ -44,9 +52,6 @@ export default function RootLayout({ children }) {
         )}
       >
         {children}
-        <FireFliesBackground />
-        <Sound />
-        <div id="my-modal" />
       </body>
     </html>
   );

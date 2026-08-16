@@ -1,7 +1,7 @@
 export const profileData = {
   name: "Fred Dehnashi",
   shortName: "Fred",
-  role: "AI & Data Strategy Consultant",
+  role: "AI Systems & Automation Consultant",
   headline: "Building practical AI systems, SaaS products, and business automation",
   location: "Palm Bay, Florida",
   githubUsername: "nomadghibi",

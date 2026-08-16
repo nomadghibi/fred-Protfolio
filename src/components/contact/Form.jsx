@@ -61,7 +61,9 @@ export default function Form() {
       const body = encodeURIComponent(
         `${params.message}\n\nFrom: ${params.from_name}\nReply to: ${params.reply_to}`
       );
-      window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
+      window.location.assign(
+        `mailto:${contactEmail}?subject=${subject}&body=${body}`
+      );
       return;
     }
 
@@ -114,7 +116,9 @@ export default function Form() {
         onSubmit={handleSubmit(onSubmit)}
         className="max-w-xl w-full flex flex-col items-center justify-center space-y-4"
       >
+        <label htmlFor="contact-name" className="sr-only">Name</label>
         <motion.input
+          id="contact-name"
           variants={item}
           type="text"
           placeholder="Name"
@@ -125,28 +129,39 @@ export default function Form() {
               message: "Name should be at least 2 characters.",
             },
           })}
+          aria-invalid={Boolean(errors.name)}
+          aria-describedby={errors.name ? "contact-name-error" : undefined}
           className="w-full p-3 rounded-md shadow-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg"
         />
         {errors.name && (
-          <span className="inline-block self-start text-accent text-sm">
+          <span id="contact-name-error" className="inline-block self-start text-accent text-sm">
             {errors.name.message}
           </span>
         )}
 
+        <label htmlFor="contact-email" className="sr-only">Email</label>
         <motion.input
+          id="contact-email"
           variants={item}
           type="email"
           placeholder="Email"
-          {...register("email", { required: "Email is required." })}
+          {...register("email", {
+            required: "Email is required.",
+            pattern: { value: /^\S+@\S+\.\S+$/, message: "Enter a valid email address." },
+          })}
+          aria-invalid={Boolean(errors.email)}
+          aria-describedby={errors.email ? "contact-email-error" : undefined}
           className="w-full p-3 rounded-md shadow-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg"
         />
         {errors.email && (
-          <span className="inline-block self-start text-accent text-sm">
+          <span id="contact-email-error" className="inline-block self-start text-accent text-sm">
             {errors.email.message}
           </span>
         )}
 
+        <label htmlFor="contact-message" className="sr-only">Project details</label>
         <motion.textarea
+          id="contact-message"
           variants={item}
           rows={6}
           placeholder="Tell me about your project"
@@ -161,10 +176,12 @@ export default function Form() {
               message: "Please provide at least 20 characters.",
             },
           })}
+          aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? "contact-message-error" : undefined}
           className="w-full p-3 rounded-md shadow-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg resize-y"
         />
         {errors.message && (
-          <span className="inline-block self-start text-accent text-sm">
+          <span id="contact-message-error" className="inline-block self-start text-accent text-sm">
             {errors.message.message}
           </span>
         )}
