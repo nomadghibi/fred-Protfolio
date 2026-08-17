@@ -1,10 +1,10 @@
-import { Inter } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 import clsx from "clsx";
 
-const inter = Inter({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-geist",
 });
 
 export const metadata = {
@@ -47,8 +47,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body
         className={clsx(
-          inter.variable,
-          "bg-background text-foreground font-inter"
+          geist.variable,
+          "bg-background text-foreground"
         )}
       >
         {children}

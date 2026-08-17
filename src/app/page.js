@@ -2,19 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowRight,
-  Bot,
-  BrainCircuit,
   CheckCircle2,
   CloudCog,
   Code2,
   Database,
-  ExternalLink,
   Github,
   Network,
   ShieldCheck,
+  BrainCircuit,
   Workflow,
 } from "lucide-react";
 import { profileData } from "./data";
+import HeroCopy from "@/components/HeroCopy";
+import SystemCards from "@/components/SystemCards";
 
 const proofPoints = [
   "Multi-tenant SaaS",
@@ -23,65 +23,6 @@ const proofPoints = [
   "Private LLMs",
   "API architecture",
   "Workflow automation",
-];
-
-const featuredSystems = [
-  {
-    number: "01",
-    name: "CareFlow AI",
-    category: "Care intelligence",
-    outcome: "Coordinate care operations and turn daily records into actionable resident intelligence.",
-    problem:
-      "Care observations, incidents, and notes are fragmented across operational workflows.",
-    system:
-      "A care operations platform combining alert triage, incident reporting, shift handoffs, family communication, role-aware dashboards, and grounded AI workflows.",
-    evidence: "A live, production-oriented workflow for senior living teams.",
-    tech: ["FastAPI", "Next.js", "PostgreSQL", "pgvector", "RBAC"],
-    href: "https://careflow-ai-web.vercel.app",
-    icon: BrainCircuit,
-  },
-  {
-    number: "02",
-    name: "AI Front Office",
-    category: "Revenue automation",
-    outcome: "Recover missed opportunities and qualify leads while teams stay focused.",
-    problem:
-      "Service businesses lose revenue when calls and web leads are not handled immediately.",
-    system:
-      "An event-driven front office that follows up, qualifies intent, schedules next steps, and records every interaction in the business workflow.",
-    evidence: "From inbound event to qualified, traceable customer action.",
-    tech: ["AI agents", "Voice & SMS", "APIs", "CRM", "Automation"],
-    href: "https://frontend-five-brown-e6pmozaq6t.vercel.app",
-    icon: Bot,
-  },
-  {
-    number: "03",
-    name: "HVAC Pro Office",
-    category: "Vertical SaaS",
-    outcome: "Run customers, jobs, quotes, invoices, and subscriptions from one operational system.",
-    problem:
-      "HVAC companies often coordinate field work, customer communication, billing, and maintenance across disconnected tools.",
-    system:
-      "A unified field-service SaaS platform with CRM, scheduling, estimates, invoices, subscriptions, and AI-ready automation workflows.",
-    evidence: "A complete vertical business operating system with a live product experience.",
-    tech: ["Next.js", "CRM", "Payments", "Scheduling", "Automation"],
-    href: "https://hvac-rose.vercel.app",
-    icon: CloudCog,
-  },
-  {
-    number: "04",
-    name: "SafeStride",
-    category: "Computer vision",
-    outcome: "Translate movement video into useful gait and fall-risk signals.",
-    problem:
-      "Mobility changes are difficult to assess consistently outside specialized environments.",
-    system:
-      "A video-processing pipeline that extracts movement signals, runs AI inference, and presents human-readable assessment support.",
-    evidence: "A different class of AI system: video, inference, and health UX.",
-    tech: ["Computer vision", "Python", "Video", "AI inference", "Health UX"],
-    href: "https://safestride-mvp-zncm.vercel.app",
-    icon: Network,
-  },
 ];
 
 const process = [
@@ -132,29 +73,7 @@ export default function Home() {
           className="hero-system-image"
         />
         <div className="hero-system-overlay" />
-        <div className="hero-copy">
-          <div className="system-status">
-            <span /> Neural systems online
-          </div>
-          <p className="eyebrow">{profileData.role}</p>
-          <h1>I build AI-enabled systems that move real work forward.</h1>
-          <p className="hero-summary">
-            Strategy, architecture, and production-minded engineering for SaaS,
-            automation, private AI, and business-critical workflows.
-          </p>
-          <div className="hero-actions">
-            <Link href="#systems" className="button button-primary">
-              View flagship systems <ArrowRight size={17} />
-            </Link>
-            <Link href="/contact" className="button button-secondary">
-              Work with me
-            </Link>
-          </div>
-          <p className="hero-note">
-            Based in {profileData.location} · Building for teams that need more
-            than an AI demo
-          </p>
-        </div>
+        <HeroCopy />
       </section>
 
       <section className="proof-band" aria-label="Engineering capabilities">
@@ -173,48 +92,15 @@ export default function Home() {
 
       <section id="systems" className="content-section systems-section">
         <div className="section-heading">
-          <div>
-            <p className="eyebrow">Featured systems</p>
-            <h2>Projects framed by the problems they solve.</h2>
-          </div>
+          <h2>Projects framed by the problems they solve.</h2>
           <p>
             These are not isolated interfaces. Each project connects data,
             intelligence, software architecture, and operational action.
           </p>
         </div>
 
-        <div className="systems-grid">
-          {featuredSystems.map((project) => {
-            const Icon = project.icon;
-            return (
-              <article className="system-card" key={project.name}>
-                <div className="card-topline">
-                  <span>{project.number} / {project.category}</span>
-                  <Icon size={24} aria-hidden="true" />
-                </div>
-                <h3>{project.name}</h3>
-                <p className="system-outcome">{project.outcome}</p>
-                <dl>
-                  <div><dt>Problem</dt><dd>{project.problem}</dd></div>
-                  <div><dt>System</dt><dd>{project.system}</dd></div>
-                  <div><dt>Evidence</dt><dd>{project.evidence}</dd></div>
-                </dl>
-                <div className="tech-tags">
-                  {project.tech.map((item) => <span key={item}>{item}</span>)}
-                </div>
-                <Link
-                  href={project.href}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="system-live-link"
-                  aria-label={`Open the live ${project.name} project`}
-                >
-                  View live system <ExternalLink size={15} />
-                </Link>
-              </article>
-            );
-          })}
-        </div>
+        <SystemCards />
+
         <div className="section-action">
           <Link href="/projects" className="text-link">
             Explore the complete project portfolio <ArrowRight size={17} />
@@ -224,10 +110,8 @@ export default function Home() {
 
       <section id="approach" className="content-section architecture-section">
         <div className="section-heading">
-          <div>
-            <p className="eyebrow">How I build</p>
-            <h2>Intelligence is one layer of a dependable system.</h2>
-          </div>
+          <p className="eyebrow">How I build</p>
+          <h2>Intelligence is one layer of a dependable system.</h2>
           <p>
             Useful AI is connected to clean data, explicit permissions,
             reliable tools, human review, and measurable business actions.
@@ -262,7 +146,6 @@ export default function Home() {
 
       <section className="content-section technology-section">
         <div>
-          <p className="eyebrow">Technology with a purpose</p>
           <h2>A practical stack for modern AI products.</h2>
           <p>
             Python and FastAPI for services. Next.js for product experiences.
@@ -282,7 +165,6 @@ export default function Home() {
 
       <section className="contact-banner">
         <div>
-          <p className="eyebrow">Let&apos;s build something useful</p>
           <h2>Have a workflow that AI should make better?</h2>
           <p>
             I help turn ambiguous AI opportunities into clear, secure, and
