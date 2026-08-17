@@ -5,8 +5,8 @@ import Link from "next/link";
 import { ExternalLink, Github } from "lucide-react";
 
 const item = {
-  hidden: { opacity: 0, y: 100 },
-  show: { opacity: 1, y: 0 },
+  hidden: { opacity: 0, transform: "translateY(16px)" },
+  show: { opacity: 1, transform: "translateY(0px)", transition: { duration: 0.3, ease: [0.23, 1, 0.32, 1] } },
 };
 
 const ProjectLayout = ({

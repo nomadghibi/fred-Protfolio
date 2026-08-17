@@ -42,8 +42,8 @@ const getIcon = (icon) => {
 };
 
 const item = {
-  hidden: { scale: 0 },
-  show: { scale: 1 },
+  hidden: { opacity: 0, transform: "scale(0.95)" },
+  show: { opacity: 1, transform: "scale(1)", transition: { duration: 0.25, ease: [0.23, 1, 0.32, 1] } },
 };
 
 const NavLink = motion(Link);
