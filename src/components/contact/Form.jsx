@@ -4,28 +4,43 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import emailjs from "@emailjs/browser";
 import { Toaster, toast } from "sonner";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ExternalLink, Github } from "lucide-react";
 import { profileData } from "@/app/data";
 
 const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.1,
-    },
-  },
+  hidden: {},
+  show: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
 };
 
 const item = {
-  hidden: { scale: 0.9, opacity: 0 },
-  show: { scale: 1, opacity: 1 },
+  hidden: { opacity: 0, transform: "translateY(14px)" },
+  show: { opacity: 1, transform: "translateY(0px)", transition: { duration: 0.35, ease: [0.23, 1, 0.32, 1] } },
+};
+
+const inputStyle = {
+  width: "100%",
+  padding: "12px 16px",
+  background: "rgba(15,23,42,.7)",
+  border: "1px solid rgba(148,163,184,.18)",
+  color: "#e2e8f0",
+  fontSize: ".9rem",
+  outline: "none",
+  fontFamily: "inherit",
+  transition: "border-color .15s ease",
+};
+
+const errorStyle = {
+  display: "inline-block",
+  alignSelf: "flex-start",
+  color: "#22d3ee",
+  fontSize: ".8rem",
+  marginTop: "4px",
 };
 
 export default function Form() {
+  const reduce = useReducedMotion();
   const {
     register,
     handleSubmit,
@@ -46,12 +61,10 @@ export default function Form() {
           publicKey,
           limitRate: { throttle: 5000 },
         });
-        toast.success("Your message was sent successfully.", { id: toastId });
+        toast.success("Message sent.", { id: toastId });
         reset();
       } catch {
-        toast.error("The message could not be sent. Please use GitHub instead.", {
-          id: toastId,
-        });
+        toast.error("Could not send. Use GitHub instead.", { id: toastId });
       }
       return;
     }
@@ -67,9 +80,7 @@ export default function Form() {
       return;
     }
 
-    toast.info(
-      "Contact form setup is optional. Add EmailJS values or NEXT_PUBLIC_CONTACT_EMAIL in .env.local."
-    );
+    toast.info("Add NEXT_PUBLIC_CONTACT_EMAIL or EmailJS env vars to enable sending.");
   };
 
   const onSubmit = (data) => {
@@ -83,116 +94,104 @@ export default function Form() {
 
   return (
     <>
-      <Toaster richColors />
+      <Toaster richColors position="top-right" />
 
-      <div className="grid w-full max-w-3xl gap-3 sm:grid-cols-2">
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px", maxWidth: "640px", marginBottom: "32px" }}>
         <Link
           href={profileData.githubUrl}
           target="_blank"
           rel="noreferrer"
-          className="custom-bg flex items-center justify-between rounded-lg p-4 hover:text-accent"
+          className="project-card"
+          style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", color: "#e2e8f0", textDecoration: "none" }}
         >
-          <span className="flex items-center gap-3">
-            <Github className="h-5 w-5" strokeWidth={1.5} />
-            GitHub / {profileData.githubUsername}
+          <span style={{ display: "flex", alignItems: "center", gap: "10px", fontSize: ".85rem" }}>
+            <Github size={16} strokeWidth={1.5} />
+            {profileData.githubUsername}
           </span>
-          <ExternalLink className="h-4 w-4" />
+          <ExternalLink size={14} style={{ color: "#64748b" }} />
         </Link>
         <Link
           href={profileData.websiteUrl}
           target="_blank"
           rel="noreferrer"
-          className="custom-bg flex items-center justify-between rounded-lg p-4 hover:text-accent"
+          className="project-card"
+          style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "16px 20px", color: "#e2e8f0", textDecoration: "none" }}
         >
-          <span>{profileData.websiteLabel}</span>
-          <ExternalLink className="h-4 w-4" />
+          <span style={{ fontSize: ".85rem" }}>{profileData.websiteLabel}</span>
+          <ExternalLink size={14} style={{ color: "#64748b" }} />
         </Link>
       </div>
 
       <motion.form
         variants={container}
-        initial="hidden"
+        initial={reduce ? false : "hidden"}
         animate="show"
         onSubmit={handleSubmit(onSubmit)}
-        className="max-w-xl w-full flex flex-col items-center justify-center space-y-4"
+        style={{ maxWidth: "640px", width: "100%", display: "flex", flexDirection: "column", gap: "12px" }}
       >
-        <label htmlFor="contact-name" className="sr-only">Name</label>
-        <motion.input
-          id="contact-name"
-          variants={item}
-          type="text"
-          placeholder="Name"
-          {...register("name", {
-            required: "Name is required.",
-            minLength: {
-              value: 2,
-              message: "Name should be at least 2 characters.",
-            },
-          })}
-          aria-invalid={Boolean(errors.name)}
-          aria-describedby={errors.name ? "contact-name-error" : undefined}
-          className="w-full p-3 rounded-md shadow-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg"
-        />
-        {errors.name && (
-          <span id="contact-name-error" className="inline-block self-start text-accent text-sm">
-            {errors.name.message}
-          </span>
-        )}
+        <motion.div variants={item} style={{ display: "flex", flexDirection: "column" }}>
+          <label htmlFor="contact-name" className="sr-only">Name</label>
+          <input
+            id="contact-name"
+            type="text"
+            placeholder="Name"
+            {...register("name", {
+              required: "Name is required.",
+              minLength: { value: 2, message: "At least 2 characters." },
+            })}
+            aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? "contact-name-error" : undefined}
+            style={inputStyle}
+            onFocus={e => e.target.style.borderColor = "rgba(34,211,238,.5)"}
+            onBlur={e => e.target.style.borderColor = "rgba(148,163,184,.18)"}
+          />
+          {errors.name && <span id="contact-name-error" style={errorStyle}>{errors.name.message}</span>}
+        </motion.div>
 
-        <label htmlFor="contact-email" className="sr-only">Email</label>
-        <motion.input
-          id="contact-email"
-          variants={item}
-          type="email"
-          placeholder="Email"
-          {...register("email", {
-            required: "Email is required.",
-            pattern: { value: /^\S+@\S+\.\S+$/, message: "Enter a valid email address." },
-          })}
-          aria-invalid={Boolean(errors.email)}
-          aria-describedby={errors.email ? "contact-email-error" : undefined}
-          className="w-full p-3 rounded-md shadow-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg"
-        />
-        {errors.email && (
-          <span id="contact-email-error" className="inline-block self-start text-accent text-sm">
-            {errors.email.message}
-          </span>
-        )}
+        <motion.div variants={item} style={{ display: "flex", flexDirection: "column" }}>
+          <label htmlFor="contact-email" className="sr-only">Email</label>
+          <input
+            id="contact-email"
+            type="email"
+            placeholder="Email"
+            {...register("email", {
+              required: "Email is required.",
+              pattern: { value: /^\S+@\S+\.\S+$/, message: "Enter a valid email address." },
+            })}
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? "contact-email-error" : undefined}
+            style={inputStyle}
+            onFocus={e => e.target.style.borderColor = "rgba(34,211,238,.5)"}
+            onBlur={e => e.target.style.borderColor = "rgba(148,163,184,.18)"}
+          />
+          {errors.email && <span id="contact-email-error" style={errorStyle}>{errors.email.message}</span>}
+        </motion.div>
 
-        <label htmlFor="contact-message" className="sr-only">Project details</label>
-        <motion.textarea
-          id="contact-message"
-          variants={item}
-          rows={6}
-          placeholder="Tell me about your project"
-          {...register("message", {
-            required: "Message is required.",
-            maxLength: {
-              value: 1000,
-              message: "Message should be under 1,000 characters.",
-            },
-            minLength: {
-              value: 20,
-              message: "Please provide at least 20 characters.",
-            },
-          })}
-          aria-invalid={Boolean(errors.message)}
-          aria-describedby={errors.message ? "contact-message-error" : undefined}
-          className="w-full p-3 rounded-md shadow-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg resize-y"
-        />
-        {errors.message && (
-          <span id="contact-message-error" className="inline-block self-start text-accent text-sm">
-            {errors.message.message}
-          </span>
-        )}
+        <motion.div variants={item} style={{ display: "flex", flexDirection: "column" }}>
+          <label htmlFor="contact-message" className="sr-only">Project details</label>
+          <textarea
+            id="contact-message"
+            rows={6}
+            placeholder="Tell me about your project"
+            {...register("message", {
+              required: "Message is required.",
+              maxLength: { value: 1000, message: "Under 1,000 characters." },
+              minLength: { value: 20, message: "At least 20 characters." },
+            })}
+            aria-invalid={Boolean(errors.message)}
+            aria-describedby={errors.message ? "contact-message-error" : undefined}
+            style={{ ...inputStyle, resize: "vertical" }}
+            onFocus={e => e.target.style.borderColor = "rgba(34,211,238,.5)"}
+            onBlur={e => e.target.style.borderColor = "rgba(148,163,184,.18)"}
+          />
+          {errors.message && <span id="contact-message-error" style={errorStyle}>{errors.message.message}</span>}
+        </motion.div>
 
-        <motion.button
-          variants={item}
-          className="px-10 py-4 rounded-md shadow-lg bg-background border border-accent/30 hover:shadow-glass-sm backdrop-blur-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 cursor-pointer"
-          type="submit"
-        >
-          Send project inquiry
-        </motion.button>
+        <motion.div variants={item}>
+          <button type="submit" className="button button-primary" style={{ marginTop: "8px" }}>
+            Send project inquiry
+          </button>
+        </motion.div>
       </motion.form>
     </>
   );
