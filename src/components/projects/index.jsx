@@ -1,46 +1,47 @@
 "use client";
 import { motion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import ProjectLayout from "./ProjectLayout";
 
 const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
 };
 
 const ProjectList = ({ projects }) => {
+  const reduce = useReducedMotion();
   return (
-    <section className="w-full">
-      <header className="mx-auto mb-10 max-w-4xl text-center">
-        <p className="text-sm uppercase tracking-[0.3em] text-accent">
-          Selected work
-        </p>
-        <h1 className="mt-3 text-4xl font-semibold text-foreground sm:text-6xl">
+    <div className="sub-content">
+      <div className="section-heading">
+        <p className="eyebrow">Selected work</p>
+        <h1 style={{
+          margin: 0,
+          color: "white",
+          fontSize: "clamp(2rem, 4vw, 3.5rem)",
+          lineHeight: 1.08,
+          letterSpacing: "-.045em",
+          fontWeight: 580,
+        }}>
           GitHub Portfolio
         </h1>
-        <p className="mx-auto mt-4 max-w-2xl text-sm font-light leading-relaxed text-foreground/75 sm:text-base">
+        <p>
           A curated set of AI, SaaS, automation, accessibility, analytics, and
           local-business products. Use the GitHub and external-link buttons to
           inspect the code or open a live project.
         </p>
-      </header>
+      </div>
 
       <motion.div
         variants={container}
-        initial="hidden"
+        initial={reduce ? false : "hidden"}
         animate="show"
-        className="w-full max-w-5xl px-0 mx-auto space-y-5 md:space-y-6 flex flex-col items-center"
+        className="flex flex-col gap-4"
       >
         {projects.map((project) => (
           <ProjectLayout key={project.id} {...project} />
         ))}
       </motion.div>
-    </section>
+    </div>
   );
 };
 

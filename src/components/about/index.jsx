@@ -46,7 +46,7 @@ const AboutDetails = () => {
         <ItemLayout className="col-span-full sm:col-span-6 md:col-span-4 !p-0 overflow-hidden">
           <img
             className="w-full h-auto"
-            src={`${statsBase}/api/top-langs?username=${username}&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false&layout=compact`}
+            src={`${statsBase}/api/top-langs?username=${username}&theme=transparent&hide_border=true&title_color=22d3ee&text_color=FFFFFF&icon_color=22d3ee&text_bold=false&layout=compact`}
             alt={`${profileData.name}'s most-used GitHub languages`}
             loading="lazy"
           />
@@ -55,7 +55,7 @@ const AboutDetails = () => {
         <ItemLayout className="col-span-full md:col-span-8 !p-0 overflow-hidden">
           <img
             className="w-full h-auto"
-            src={`${statsBase}/api?username=${username}&show_icons=true&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false`}
+            src={`${statsBase}/api?username=${username}&show_icons=true&theme=transparent&hide_border=true&title_color=22d3ee&text_color=FFFFFF&icon_color=22d3ee&text_bold=false`}
             alt={`${profileData.name}'s GitHub statistics`}
             loading="lazy"
           />
@@ -73,7 +73,7 @@ const AboutDetails = () => {
         <ItemLayout className="col-span-full md:col-span-6 !p-0 overflow-hidden">
           <img
             className="w-full h-auto"
-            src={`${streakBase}?user=${username}&theme=dark&hide_border=true&type=svg&background=EB545400&ring=FEFE5B&currStreakLabel=FEFE5B`}
+            src={`${streakBase}?user=${username}&theme=dark&hide_border=true&type=svg&background=EB545400&ring=22d3ee&currStreakLabel=22d3ee`}
             alt={`${profileData.name}'s GitHub contribution streak`}
             loading="lazy"
           />
@@ -88,7 +88,7 @@ const AboutDetails = () => {
           >
             <img
               className="w-full h-auto"
-              src={`${statsBase}/api/pin/?username=${username}&repo=wonderkid-stories&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false&description_lines_count=2`}
+              src={`${statsBase}/api/pin/?username=${username}&repo=wonderkid-stories&theme=transparent&hide_border=true&title_color=22d3ee&text_color=FFFFFF&icon_color=22d3ee&text_bold=false&description_lines_count=2`}
               alt="Featured WonderKid Stories GitHub repository"
               loading="lazy"
             />

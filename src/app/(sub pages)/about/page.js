@@ -14,22 +14,30 @@ export default function About() {
         fill
         priority
         sizes="100vw"
-        alt="Creative background for the about page"
-        className="-z-50 fixed object-cover object-center opacity-25"
+        alt="Abstract AI system architecture background"
+        className="-z-50 fixed object-cover object-center opacity-10"
       />
 
-      <div className="relative w-full h-screen flex flex-col items-center justify-center">
-        <div className="flex flex-col items-center text-center w-full px-4">
-          <h1 className="font-bold text-5xl xs:text-6xl sm:text-7xl lg:text-8xl text-accent">
-            {profileData.name}
-          </h1>
-          <p className="font-light text-foreground text-base sm:text-lg mt-2">
-            {profileData.role} · {profileData.location}
-          </p>
-        </div>
-      </div>
+      <section className="sub-hero">
+        <p className="eyebrow">{profileData.role}</p>
+        <h1 style={{
+          margin: 0,
+          color: "white",
+          fontSize: "clamp(3rem, 7vw, 6rem)",
+          letterSpacing: "-0.06em",
+          fontWeight: 620,
+          lineHeight: 0.95,
+        }}>
+          {profileData.name}
+        </h1>
+        <p style={{ marginTop: "18px", color: "#94a3b8", fontSize: ".95rem" }}>
+          {profileData.location}
+        </p>
+      </section>
 
-      <AboutDetails />
+      <div className="sub-content">
+        <AboutDetails />
+      </div>
     </>
   );
 }

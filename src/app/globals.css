@@ -149,6 +149,38 @@
 .contact-actions { flex-wrap: nowrap; }
 .site-footer { width: min(1180px, calc(100% - 40px)); margin: 0 auto; padding: 28px 0 40px; display: flex; justify-content: space-between; color: #475569; font-size: .68rem; border-top: 1px solid rgba(148,163,184,.1); }
 
+/* Sub-page shell (scrollable, no overflow:hidden) */
+.sub-shell {
+  min-height: 100dvh;
+  color: #e2e8f0;
+  position: relative;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(56,189,248,.05), transparent 32%),
+    linear-gradient(180deg, #020617, #050b18 50%, #020617);
+}
+
+.sub-hero {
+  padding: 148px max(24px, calc((100vw - 1180px) / 2)) 72px;
+}
+
+.sub-content {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 0 0 120px;
+}
+
+/* Project cards — flat, sharp, matching home page system cards */
+.project-card {
+  padding: 28px 30px;
+  background: linear-gradient(145deg, rgba(15,23,42,.8), rgba(2,6,23,.86));
+  border: 1px solid rgba(148,163,184,.14);
+  transition: border-color .25s ease, transform 200ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover { border-color: rgba(103,232,249,.34); transform: translateY(-2px); }
+}
+
 @keyframes status-pulse { 50% { opacity: .35; transform: scale(.7); } }
 
 @media (hover: hover) and (pointer: fine) {

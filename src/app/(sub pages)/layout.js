@@ -1,10 +1,20 @@
-import HomeBtn from "@/components/HomeBtn";
+import Link from "next/link";
 
 export default function SubPagesLayout({ children }) {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center px-8 xs:px-16 lg:px-32 py-20">
-      <HomeBtn />
+    <div className="sub-shell">
+      <nav className="site-nav" aria-label="Primary navigation">
+        <Link href="/" className="brand-mark" aria-label="Fred Dehnashi home">
+          FD<span>.</span>
+        </Link>
+        <div className="nav-links">
+          <Link href="/#systems">Systems</Link>
+          <Link href="/#approach">Approach</Link>
+          <Link href="/projects">Projects</Link>
+          <Link href="/contact" className="nav-cta">Start a conversation</Link>
+        </div>
+      </nav>
       {children}
-    </main>
+    </div>
   );
 }
